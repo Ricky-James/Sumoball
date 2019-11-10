@@ -1,2 +1,0 @@
-# Sumoball
-sumo
