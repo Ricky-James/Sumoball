@@ -31,8 +31,7 @@ public class camTarget : MonoBehaviour
 
 
 
-        Debug.Log("Trans pos: " + transform.position);
-        Debug.Log("Offset: " + targetOffset);
+     
     }
 
 

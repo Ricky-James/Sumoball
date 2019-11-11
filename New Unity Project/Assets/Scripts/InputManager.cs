@@ -6,12 +6,12 @@ public class InputManager : MonoBehaviour
 {
     public float throttle()
     {
-        return Input.GetAxisRaw("Vertical");
+        return Input.GetAxis("Vertical");
     }
 
     public float direction()
     {
-        return Input.GetAxisRaw("Horizontal");
+        return Input.GetAxis("Horizontal");
     }
 
 

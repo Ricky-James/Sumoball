@@ -9,7 +9,12 @@ public class playerMovement : MonoBehaviour
     public InputManager input;
     public Rigidbody rb;
     public Transform cam; //Cam target + direction
-    
+
+    [Range(0, 30)]
+    public float forwardSpeed;
+    [Range(0, 20)]
+    public float strafeSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +29,8 @@ public class playerMovement : MonoBehaviour
        
 
 
-        rb.AddForce(cam.forward * 15 * input.throttle());
-        rb.AddForce(cam.right * 15 * input.direction());
+        rb.AddForce(cam.forward * forwardSpeed * input.throttle());
+        rb.AddForce(cam.right * strafeSpeed * input.direction());
 
 
         ///OLD SCRIPT please ignore.///
