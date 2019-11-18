@@ -28,7 +28,5 @@ public class gameManager : MonoBehaviour
                 door.enabled = true;
             }
         }
-
-        Debug.Log(doorTimer);
     }
 }

@@ -18,6 +18,7 @@ public class camTarget : MonoBehaviour
 
     void Update()
     {
+
         float direction = Input.GetAxisRaw("Horizontal");
         timer -= Time.deltaTime * rotSpeed * direction;
 
