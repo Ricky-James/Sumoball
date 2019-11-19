@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿//SCRIPT WRITTEN BY RICKY JAMES - Last updated 10/11/2019
+//SCRAPPED SCRIPT SAVED FOR FUTURE REFERENCE
+///Movement script dependant on wheel collider for turning
+///Essentially attempts to function somewhat like a monocycle, only without the leaning
+///Doesn't allow for rolling left/right and makes some collisions a little odd
+///Wasn't able to appropriately implement the rotation of the model
+///Collider rotation (wheel.SteerAngle) isn't easily utilised for actual rotation
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

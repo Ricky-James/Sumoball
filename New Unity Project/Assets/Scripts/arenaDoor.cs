@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//SCRIPT WRITTEN BY RICKY JAMES - Last updated 11/11/2019
 using UnityEngine;
 
 public class arenaDoor : MonoBehaviour
