@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 951800133315232223}
   - component: {fileID: 951800133315232220}
   - component: {fileID: 951800133315232221}
-  - component: {fileID: 951800133315232210}
   m_Layer: 8
   m_Name: Player1Camera
   m_TagString: MainCamera
@@ -161,21 +160,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951800133315232211}
   m_Enabled: 1
---- !u!114 &951800133315232210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951800133315232211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81eaeb5a59361a3419c30f64f714364b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 951800134591938593}
-  input: {fileID: 951800134591938594}
-  camTarget: {fileID: 951800133141343675}
 --- !u!1 &951800134591938597
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,8 +173,6 @@ GameObject:
   - component: {fileID: 951800134591938599}
   - component: {fileID: 951800134591938596}
   - component: {fileID: 951800134591938592}
-  - component: {fileID: 951800134591938594}
-  - component: {fileID: 951800134591938595}
   m_Layer: 8
   m_Name: Player1Model
   m_TagString: Player
@@ -287,30 +269,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &951800134591938594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951800134591938597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f675a317a7bd44d8d1226bd40d7f0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &951800134591938595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951800134591938597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ca7f46b95894a4db645b1908ee9c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  input: {fileID: 951800134591938594}
-  rb: {fileID: 951800134591938596}
-  cam: {fileID: 951800133315232223}

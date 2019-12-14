@@ -40,7 +40,9 @@ public class deathPlane : MonoBehaviour
     {
         //Set properties of player to be spawned
         GameObject player = respawnQueue.Dequeue();
-        
+//        player.GetComponent<Player>().SetState(new RespawnState());
+
+
         Rigidbody rb = player.GetComponent<Rigidbody>(); //Used to reset momentum
         Transform parent = player.GetComponentInParent<Transform>(); //Used to set position to spawn loc
         playerInfo info = player.GetComponentInParent<playerInfo>(); //Used to check/deduct lives
@@ -56,7 +58,7 @@ public class deathPlane : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.FreezeAll; //Prevent player from being knocked back while spawning
-        movement.enabled = false; //Disable movement while phasing in/spawning
+        
         
         //Set pos to random spawner pos
         //Rotation doesn't matter as the player will face the cam target on next update step

@@ -1,19 +1,13 @@
-﻿//SCRIPT WRITTEN BY RICKY JAMES - Last updated 10/11/2019
+﻿//SCRIPT WRITTEN BY RICKY JAMES - Last updated 06/12/2019
 using UnityEngine;
 
 public class playerCamera : MonoBehaviour
 {
 
     [SerializeField] private Transform player;
-    [SerializeField] private InputManager input;
     [SerializeField] private Transform camTarget;
     
-    
-
-    private void Update()
-    {
-        
-    }
+   
 
     // Update is called once per frame
     void FixedUpdate()

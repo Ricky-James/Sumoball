@@ -10,11 +10,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(InputManager))] //Dependancy to function, auto-attachs IM to any object with this script
+
 public class wheelMovement : MonoBehaviour
 {
 
-    public InputManager input;
     public WheelCollider wheel;
 
 
@@ -32,17 +31,13 @@ public class wheelMovement : MonoBehaviour
         return turn;
     }
 
-    void Start()
-    {
-        input = GetComponent<InputManager>(); //Safety check in case it's not set in inspector
-    }
     
 
     void FixedUpdate()
     {
         //Throttle
 
-        wheel.motorTorque = strength * input.throttle() * Time.deltaTime;
+        wheel.motorTorque = strength * Input.GetAxis("Vertical") * Time.deltaTime;
 
         pmodel.Rotate(wheel.rpm, wheel.transform.rotation.y, 0); //Rotate player model based on RPM
         //This is a purely visual rotation, could be used to 'animate' as a gyroscope.
@@ -50,12 +45,12 @@ public class wheelMovement : MonoBehaviour
         
 
         //Turning
-        if(input.direction() > 0)
+        if(Input.GetAxis("Horizontal") > 0)
         {
             turn += turnRate;
             
         }
-        else if (input.direction() < 0)
+        else if (Input.GetAxis("Horizontal") < 0)
         {
             turn -= turnRate;
         }
