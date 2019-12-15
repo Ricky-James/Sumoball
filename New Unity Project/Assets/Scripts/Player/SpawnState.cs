@@ -1,12 +1,12 @@
 ﻿////SCRIPT WRITTEN BY RICKY JAMES - Last updated 14/12/2019
 //State used as player phases in to spawn after dying/start of round.
 using UnityEngine;
-using TMPro;
 
 public class SpawnState : PlayerState
 {
     private const float spawnTime = 4.0f;
     float timeUntilAlive = 4.0f;
+    private bool respawning = false;
 
 
     public SpawnState(Player player) : base(player)
@@ -15,7 +15,7 @@ public class SpawnState : PlayerState
 
         reduceLives(); //Also checks for game over
         
-        player.countdownText.enabled = true;
+
         //Reset velo to stop player from rolling around while spawning
         player.rb.velocity = Vector3.zero;
         player.rb.angularVelocity = Vector3.zero;
@@ -30,23 +30,30 @@ public class SpawnState : PlayerState
 
     public override void Tick()
     {
-        timeUntilAlive -= Time.deltaTime;
-        
-        if(timeUntilAlive > 1)
+        if(respawning)
         {
-            //Cast countdown to int to floor it / remove decimals
-            player.countdownText.text = ((int)timeUntilAlive).ToString() + "...";
-        } else
-        {
-            player.countdownText.text = "Sumo!";
-        }
-        
+            player.countdownText.enabled = true;
+            timeUntilAlive -= Time.deltaTime;
 
-        if(timeUntilAlive < 0)
-        {
-            player.countdownText.enabled = false;
-            player.SetState(new AliveState(player));
+            if (timeUntilAlive > 1)
+            {
+                //Cast countdown to int to floor it / remove decimals
+                player.countdownText.text = ((int)timeUntilAlive).ToString() + "...";
+            }
+            else
+            {
+                player.countdownText.text = "Sumo!";
+            }
+
+
+            if (timeUntilAlive < 0)
+            {
+                player.countdownText.enabled = false;
+                respawning = false;
+                player.SetState(new AliveState(player));
+            }
         }
+
             
 
     }
@@ -55,11 +62,10 @@ public class SpawnState : PlayerState
     {
         player.lives--;
         player.lifeText.text = "Lives: " + player.lives;
-        if (player.lives < 0)
-        {
-            //Set Game over
-            //player.SetState(new GameOverState(player));
-        }
+        respawning = player.lives > 0 ? true : false;
+
+        if (player.lives <= 0)
+            player.SetState(new GameOverState(player));
     }
 
 }

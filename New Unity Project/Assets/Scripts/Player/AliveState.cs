@@ -15,8 +15,8 @@ public class AliveState : PlayerState
 
     public override void handleInput()
     {
-        player.rb.AddForce(player.cam.forward * forwardSpeed * Input.GetAxis("Vertical"));
-        player.rb.AddForce(player.cam.right * strafeSpeed * Input.GetAxis("Horizontal"));
+        player.rb.AddForce(player.cam.transform.forward * forwardSpeed * Input.GetAxis("Vertical"));
+        player.rb.AddForce(player.cam.transform.right * strafeSpeed * Input.GetAxis("Horizontal"));
     }
 
     //Basically update, called in gamestates

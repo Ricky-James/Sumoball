@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
 {
 
     public Rigidbody rb;
-    public Transform cam;
+    public Camera cam;
     public Transform respawnLocation;
-    public int lives = 3;
+    public int lives; //Set in inspector
     public TMPro.TextMeshProUGUI lifeText;
     public TMPro.TextMeshProUGUI countdownText;
 
