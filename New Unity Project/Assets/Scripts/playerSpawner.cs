@@ -50,7 +50,7 @@ public class playerSpawner : MonoBehaviour
         spawnLocation = new Vector3(x, transform.position.y, z);
 
         transform.SetPositionAndRotation(spawnLocation, Quaternion.identity);
-        Debug.Log("Spawn moved!");
+
 
     }
 

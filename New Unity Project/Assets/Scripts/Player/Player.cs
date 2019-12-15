@@ -10,12 +10,19 @@ public class Player : MonoBehaviour
 
     public Rigidbody rb;
     public Transform cam;
+    public Transform respawnLocation;
+    public int lives = 3;
+    public TMPro.TextMeshProUGUI lifeText;
+    public TMPro.TextMeshProUGUI countdownText;
+
+
 
     private PlayerState currentState;
 
     void Start()
     {
         SetState(new AliveState(this));
+        lifeText.text = "Lives: " + lives;
     }
 
     void Update()
@@ -26,7 +33,6 @@ public class Player : MonoBehaviour
     public void SetState(PlayerState state)
     {
         currentState = state;
-        gameObject.name = "Player " + state.GetType().Name;
     }
 
 }

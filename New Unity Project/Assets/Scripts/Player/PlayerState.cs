@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Abstract class, inherit only to create different types of states
-public abstract class PlayerState : MonoBehaviour
+public abstract class PlayerState
 {
     protected Player player;
 
