@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/StartMenu.unity
+    guid: 8974691132175f94d819b5356e9214ea
+  - enabled: 1
+    path: Assets/WaitingLobby.unity
+    guid: 99c9f741b4944dd4a94df3a418d54329
+  - enabled: 1
+    path: Assets/SumoBall Reborn.unity
+    guid: d502ced94b59c3c4b9d25a1a2d34a9d8
   m_configObjects: {}

@@ -7,14 +7,17 @@ public class GameOverState : PlayerState
     public GameOverState(Player player) : base(player)
     {
 
-        Component.FindObjectOfType<Camera>().enabled = true;
-        //Destroy all attached objects except Player (this)
-        for(int x = 0; x < player.transform.childCount; x++)
+        if (player.PV.IsMine)
         {
+            player.cam.SetActive(false);
+            GameObject gameOverCam = GameObject.Find("DeathCamera");
+            gameOverCam.tag = "MainCamera";
             player.lifeText.text = "Game Over.";
             player.countdownText.enabled = false;
-            GameObject.Destroy(player.transform.GetChild(x).gameObject);
+
         }
+        GameObject.Destroy(player.gameObject);
+
     }
 
 

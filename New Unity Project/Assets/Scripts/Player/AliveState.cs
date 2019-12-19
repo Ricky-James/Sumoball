@@ -3,25 +3,42 @@ using UnityEngine;
 
 public class AliveState : PlayerState
 {
+    //Player essentially moves towards a gameobject that orbits the player
+    //Orbiting is controled by player
 
-    private const float forwardSpeed = 10;
+    //Movement
+    private const float forwardSpeed = 30;
     private const float strafeSpeed = 5;
+    
+
+
+
 
     public AliveState(Player player) : base(player)
     {
         Debug.Log("Alive State");
         player.rb.constraints = RigidbodyConstraints.None;
+       
     }
 
     public override void handleInput()
     {
-        player.rb.AddForce(player.cam.transform.forward * forwardSpeed * Input.GetAxis("Vertical"));
-        player.rb.AddForce(player.cam.transform.right * strafeSpeed * Input.GetAxis("Horizontal"));
+        
+        player.rb.AddForce(Camera.main.transform.forward * forwardSpeed * Input.GetAxis("Vertical"));
+        player.rb.AddForce(Camera.main.transform.right * strafeSpeed * Input.GetAxis("Horizontal"));
+
+
     }
+
+
 
     //Basically update, called in gamestates
     public override void Tick()
     {
+
         handleInput();
+        player.handleCamera();
+       
+
     }
 }

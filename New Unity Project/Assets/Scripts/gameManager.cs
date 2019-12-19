@@ -3,14 +3,26 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-
+    public GameObject overCam;
     public arenaDoor[] middleDoors;
     public int middleDoorFrequency;
     private float doorTimer;
+    private bool doorsEnabled;
 
     void Start()
     {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            doorsEnabled = false;
+            overCam.SetActive(true);
+        }
+        else
+        {
+            doorsEnabled = true;
+            overCam.SetActive(false);
+        }
         doorTimer = middleDoorFrequency;
+
         //Hides cursor:
        // Cursor.lockState = CursorLockMode.Locked;
     }
@@ -18,14 +30,18 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        doorTimer -= Time.deltaTime;
-        if(doorTimer <= 0)
+        if (doorsEnabled)
         {
-            doorTimer = middleDoorFrequency + 7.5f; //Additional 7.5 seconds to account for opening/closing animation
-            foreach(arenaDoor door in middleDoors)
+            doorTimer -= Time.deltaTime;
+            if (doorTimer <= 0)
             {
-                door.enabled = true;
+                doorTimer = middleDoorFrequency + 7.5f; //Additional 7.5 seconds to account for opening/closing animation
+                foreach (arenaDoor door in middleDoors)
+                {
+                    door.enabled = true;
+                }
             }
         }
+
     }
 }
