@@ -7,8 +7,8 @@ public class AliveState : PlayerState
     //Orbiting is controled by player
 
     //Movement
-    private const float forwardSpeed = 30;
-    private const float strafeSpeed = 5;
+    private const float forwardSpeed = 160;
+    private const float strafeSpeed = 20;
     
 
 

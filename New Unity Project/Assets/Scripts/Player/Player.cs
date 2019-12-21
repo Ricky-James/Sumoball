@@ -34,38 +34,22 @@ public class Player : MonoBehaviourPun
     private Vector3 targetOffset;
     float direction;
 
-
+    private bool playerSetup = false;
+  
 
     void Start()
-    {
-        //Find UI components
-
-
-        //Find the camera in the scene
-        cam = GameObject.FindGameObjectWithTag("MainCamera");
-        //Converts player number to the layer they should be on (player 1,2,3,4 = layer 8,9,10,11)
-        //Players are on unique layers to cull themselves
-        if (PV.IsMine || PV.OwnerActorNr == 0) // 0 for debugging. Players will always be numbered from 1 upwards
+    { 
+        // 0 for debugging. Players will normally always be numbered from 1 upwards
+        if (PV.IsMine || PV.OwnerActorNr == 0)
         {
-            lifeText = GameObject.Find("Lives text").GetComponent<TMPro.TextMeshProUGUI>();
-            countdownText = GameObject.Find("321Go").GetComponent<TMPro.TextMeshProUGUI>();
-            int layerNumber = PV.OwnerActorNr + 7;
-            //Change layer the player is on so that the camera can cull its own player model without culling all players
-            gameObject.layer = layerNumber;
-            rb.gameObject.layer = layerNumber;
+            //Run setup only once (Start() is called on every state change)
+            if (!playerSetup)
+            {
+                playerInit();
+                playerSetup = true;
+            }
+                
 
-            cam.layer = layerNumber;
-            camTarget.gameObject.layer = layerNumber;
-
-            //Enable all culling masks but NOT the bit the player is on
-            cam.GetComponent<Camera>().cullingMask = ~(1 << layerNumber);
-            cam.GetComponent<Camera>().enabled = true;
-
-            respawnLocation = GameObject.FindGameObjectWithTag("Respawn").transform;
-            SetState(new SpawnState(this));
-            lifeText.text = "Lives: " + lives;
-            //Camera target offset
-            targetOffset = new Vector3(rb.position.x * 1.2f, 0, rb.transform.position.z * 1.2f);
         }
 
     }
@@ -77,6 +61,34 @@ public class Player : MonoBehaviourPun
         {
             currentState.Tick();
         }
+    }
+
+    public void playerInit()
+    {
+        //Find the camera in the scene
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+
+        rb.gameObject.AddComponent<PlayerCollisions>();
+        lifeText = GameObject.Find("Lives text").GetComponent<TMPro.TextMeshProUGUI>();
+        countdownText = GameObject.Find("321Go").GetComponent<TMPro.TextMeshProUGUI>();
+
+        //Converts player number to the layer they should be on (player 1,2,3,4 = layer 8,9,10,11)
+        //Players are on unique layers to cull themselves
+        int layerNumber = PV.OwnerActorNr + 7;
+        //Change layer the player is on so that the camera can cull its own player model without culling all players
+        gameObject.layer = layerNumber;
+        rb.gameObject.layer = layerNumber;
+
+        cam.layer = layerNumber;
+        camTarget.gameObject.layer = layerNumber;
+
+        //Enable all culling masks but NOT the bit the player is on
+        cam.GetComponent<Camera>().cullingMask = ~(1 << layerNumber);
+        cam.GetComponent<Camera>().enabled = true;
+
+        respawnLocation = GameObject.FindGameObjectWithTag("Respawn").transform;
+        SetState(new SpawnState(this));
+
 
     }
 

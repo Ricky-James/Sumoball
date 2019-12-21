@@ -11,10 +11,10 @@ public class SpawnState : PlayerState
 
     private Vector3[] initialSpawns =
 {
-        new Vector3(21,  2.75f, 0),
-        new Vector3(-21, 2.75f, 0),
-        new Vector3(0,   2.75f, 21),
-        new Vector3(0,   2.75f, -21)
+        new Vector3(21,  3.5f, 0),
+        new Vector3(-21, 3.5f, 0),
+        new Vector3(0,   3.5f, 21),
+        new Vector3(0,   3.5f, -21)
     };
 
     private const float spawnTime = 4.0f;
@@ -31,11 +31,15 @@ public class SpawnState : PlayerState
 
             if (player.lives == 3 && player.PV.OwnerActorNr != 0) //Initial spawn points
             {
-                player.rb.transform.SetPositionAndRotation(initialSpawns[player.PV.OwnerActorNr - 1] + spawnOffset, Quaternion.identity);
+                player.rb.position = initialSpawns[player.PV.OwnerActorNr - 1];
             }
             else //Random spawn point
             {
-                player.rb.transform.SetPositionAndRotation(player.respawnLocation.position, Quaternion.identity);
+                //Setting to kinematic before moving the player to spawn point prevents player from getting stuck
+                player.rb.isKinematic = true;
+                player.rb.position = player.respawnLocation.position;
+
+
             }
 
 
@@ -67,6 +71,7 @@ public class SpawnState : PlayerState
         if (timeUntilAlive < 0)
         {
             player.countdownText.enabled = false;
+            player.rb.isKinematic = false;
             player.SetState(new AliveState(player));
         }
         

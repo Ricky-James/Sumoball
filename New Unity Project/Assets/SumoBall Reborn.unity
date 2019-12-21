@@ -1773,7 +1773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &798777374
 Camera:
   m_ObjectHideFlags: 0
@@ -1799,9 +1799,9 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 500
-  field of view: 119
+  field of view: 73
   orthographic: 1
-  orthographic size: 27.6
+  orthographic size: 21.6
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1824,13 +1824,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798777373}
-  m_LocalRotation: {x: 0.29811907, y: 0.460584, z: -0.16763884, w: 0.8190755}
-  m_LocalPosition: {x: -25, y: 25, z: -18.51}
+  m_LocalRotation: {x: 0.22663449, y: 0.37099066, z: -0.09387507, w: 0.89565074}
+  m_LocalPosition: {x: -35, y: 25.78, z: -35}
   m_LocalScale: {x: 1, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 40, y: 58.7, z: 0}
+  m_LocalEulerAnglesHint: {x: 28.400002, y: 45, z: 0}
 --- !u!4 &820156118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 7d64c7ef9a412b94fb7a9df3daa53411,
@@ -1978,7 +1978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833004457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.96267, y: -120, z: -0.13542049}
+  m_LocalPosition: {x: 20.96267, y: -70, z: -0.13542049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1486876581}
@@ -3309,7 +3309,7 @@ MonoBehaviour:
   middleDoors:
   - {fileID: 936290970}
   - {fileID: 618773172}
-  middleDoorFrequency: 20
+  middleDoorFrequency: 200
 --- !u!1001 &1499057892
 PrefabInstance:
   m_ObjectHideFlags: 0
