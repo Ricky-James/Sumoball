@@ -6,8 +6,8 @@ public class GameOverState : PlayerState
 {
     public GameOverState(Player player) : base(player)
     {
-
-        if (player.PV.IsMine)
+        
+        if (player.PV.IsMine) //Only updates locally
         {
             player.cam.SetActive(false);
             GameObject gameOverCam = GameObject.Find("DeathCamera");
@@ -23,7 +23,7 @@ public class GameOverState : PlayerState
 
     public override void Tick()
     {
-        
+        //Required to satisfy abstract function
 
     }
 }

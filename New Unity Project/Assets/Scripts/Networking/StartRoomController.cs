@@ -6,6 +6,11 @@ using Photon.Realtime;
 
 public class StartRoomController : MonoBehaviourPunCallbacks
 {
+    private void Start()
+    {
+        Screen.SetResolution(854, 480, false, 60);
+    }
+
     private const int waitingRoomSceneIndex = 1;
 
 

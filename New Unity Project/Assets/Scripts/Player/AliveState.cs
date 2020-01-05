@@ -10,35 +10,22 @@ public class AliveState : PlayerState
     private const float forwardSpeed = 160;
     private const float strafeSpeed = 20;
     
-
-
-
-
     public AliveState(Player player) : base(player)
     {
         Debug.Log("Alive State");
+        //Unfreeze the player after respawning
         player.rb.constraints = RigidbodyConstraints.None;
-       
     }
 
     public override void handleInput()
-    {
-        
+    {   
         player.rb.AddForce(Camera.main.transform.forward * forwardSpeed * Input.GetAxis("Vertical"));
         player.rb.AddForce(Camera.main.transform.right * strafeSpeed * Input.GetAxis("Horizontal"));
-
-
     }
 
-
-
-    //Basically update, called in gamestates
     public override void Tick()
     {
-
         handleInput();
         player.handleCamera();
-       
-
     }
 }

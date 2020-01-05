@@ -9,7 +9,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     //Buttons to start/stop searching for a game
     [SerializeField] private GameObject StartButton;
     [SerializeField] private GameObject CancelButton;
-    [SerializeField] private const int maxPlayers = 4; //Number of players in the room (manual setting)
+    [SerializeField] private const int maxPlayers = 4;
 
     public override void OnConnectedToMaster()
     {
@@ -18,21 +18,24 @@ public class LobbyController : MonoBehaviourPunCallbacks
         StartButton.SetActive(true);
     }
 
-    //Button click
+    //Button click event
     public void LobbyStart()
     {
         StartButton.SetActive(false);
-        CancelButton.SetActive(true);
+    //    CancelButton.SetActive(true); Cancel button currently bugged
+    //    I think issue is not sending RPC calls that the player has left the room
         PhotonNetwork.JoinRandomRoom(); ; //Try to join an existing room
     }
 
+    //Function runs on any error for failing to join a room
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("Failed to join a room. Error: " + returnCode + ": " + message);
-        //No match found
+        //32760 = No match found
+        //Create a room if the reason for failing is that no rooms exist
         if(returnCode == 32760)
         {
-            CreateRoom();
+            CreateRoom(); //Retry until successful
         }
     }
 
@@ -53,10 +56,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
         CreateRoom();
     }
 
+    //Cancel button click
     public void LobbyCancel()
     {
-        CancelButton.SetActive(false);
-        StartButton.SetActive(true);
         PhotonNetwork.LeaveRoom();
+        CancelButton.SetActive(false);
+        //Re-enable start button after leaving
+        StartButton.SetActive(true);
+        
     }
 }

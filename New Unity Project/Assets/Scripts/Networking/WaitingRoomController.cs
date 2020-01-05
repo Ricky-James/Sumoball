@@ -74,11 +74,15 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
     }
 
     //Player parameter not to be confused with custom class Player that is not part of the Photon API
+    //Meaning Photon.Realtime.Player is not the same as Player
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
+        //Update player count for all players
         PlayerCountUpdate();
+        //Reset the timer to allow more time for players to join
         ResetTimer();
 
+        //Master client informs all other players of the timer changes
         if (PhotonNetwork.IsMasterClient)
             myPhotonView.RPC("RPC_SendTimer", RpcTarget.Others, timerToStartGame);
     }
@@ -86,44 +90,48 @@ public class WaitingRoomController : MonoBehaviourPunCallbacks
     [PunRPC]
     private void RPC_SendTimer(float timeIn)
     {
+        timerToStartGame = timeIn;
 
-        //if (timeIn < timerToStartGame)
-        //{
-        //    timerToStartGame = timeIn;
-        //}
     }
 
+    //Identical to a player joining the room. Update player count and reset timer
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
+        
         PlayerCountUpdate();
+        //Timer reset could currently cause griefing by joining and leaving
         ResetTimer();
+
+        //Master client informs all other players of the timer changes
+        if (PhotonNetwork.IsMasterClient)
+            myPhotonView.RPC("RPC_SendTimer", RpcTarget.Others, timerToStartGame);
+
     }
 
     private void Update()
     {
         WaitingForPlayers();
+        //Update display every frame
+        timeToStartText.text = string.Format("{0:00}", timerToStartGame);
     }
 
     private void WaitingForPlayers()
     {
         if (playerCount <= 1)
-            ResetTimer();
+            ResetTimer(); //Games won't start with 1 player
         else
         {
-            timerToStartGame -= Time.deltaTime;
+            timerToStartGame -= Time.deltaTime; //Time decreases with >1 player
         }
 
         if (fullLobby && timerToStartGame > fullLobbyResetTime) //Full room so timer gets reduced to 5
         {
-            timerToStartGame = fullLobbyResetTime;
+            timerToStartGame = fullLobbyResetTime; //Timer skips to 5 if it's currently >5
         }
-        
-
-        timeToStartText.text = string.Format("{0:00}", timerToStartGame);
 
         if(timerToStartGame <= 0)
         {
-            //So only 1 player starts
+            //Prevents more than 1 game being started
             if (startingGame)
                 return;
             StartGame();

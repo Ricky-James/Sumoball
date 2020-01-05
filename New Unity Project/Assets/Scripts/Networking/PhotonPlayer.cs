@@ -26,9 +26,31 @@ public class PhotonPlayer : MonoBehaviour
 
     private void CreatePlayer()
     {
+        int playerID = PV.OwnerActorNr % PhotonNetwork.CurrentRoom.PlayerCount;
 
-        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Player"), Vector3.up * 3, Quaternion.identity, 0);
+        Quaternion initRotation = new Quaternion();
+        switch (playerID)
+        {
+            case 0:
+                initRotation = Quaternion.identity;
+                break;
+            case 1:
+                initRotation = new Quaternion(0, 180, 0, 0);
+                break;
+            case 2:
+                initRotation = new Quaternion(0, 90, 0, 0);
+                break;
+            case 3:
+                initRotation = new Quaternion(0, 270, 0, 0);
+                break;
+            default:
+                initRotation = Quaternion.identity;
+                break;
+        };
 
+
+
+        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Player"), SpawnState.initialSpawns[playerID], initRotation, 0);
 
     }
 }

@@ -13,11 +13,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
 {
     private void Start()
     {
-        //FORCED LOW RES FOR EASIER MULTIPLAYER TESTING
-        //DELETE LATER
-    //    Screen.SetResolution(640, 360, false, 60);
-        //
-        ////////
 
         //Connect to Photon servers
         PhotonNetwork.ConnectUsingSettings();

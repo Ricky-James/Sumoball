@@ -22,7 +22,7 @@ public class Player : MonoBehaviourPun
 
     
     public PhotonView PV;
-    private int playerID;
+    public static int playerID;
 
     private PlayerState currentState;
 
@@ -75,7 +75,8 @@ public class Player : MonoBehaviourPun
         //Converts player number to the layer they should be on (player 1,2,3,4 = layer 8,9,10,11)
         //Players are on unique layers to cull themselves
         int layerNumber = PV.OwnerActorNr + 7;
-        //Change layer the player is on so that the camera can cull its own player model without culling all players
+        //Change layer the player is on so that the camera can cull its own player model
+        //without culling all players
         gameObject.layer = layerNumber;
         rb.gameObject.layer = layerNumber;
 

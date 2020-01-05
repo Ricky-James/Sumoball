@@ -2,19 +2,18 @@
 //State used as player phases in to spawn after dying/start of round.
 using UnityEngine;
 
-
-
 public class SpawnState : PlayerState
 {
-
     private Vector3 spawnOffset = new Vector3(0, 3.5f, 0);
 
-    private Vector3[] initialSpawns =
+    //4 initial spawns for 4 players
+    public static Vector3[] initialSpawns =
 {
-        new Vector3(21,  3.5f, 0),
+        
         new Vector3(-21, 3.5f, 0),
+        new Vector3(0,   3.5f, -21),
         new Vector3(0,   3.5f, 21),
-        new Vector3(0,   3.5f, -21)
+        new Vector3(21,  3.5f, 0)
     };
 
     private const float spawnTime = 4.0f;
@@ -22,30 +21,30 @@ public class SpawnState : PlayerState
 
     public SpawnState(Player player) : base(player)
     {
-        //0 owner for debugging
+        //0 owner for debugging. Players are usually numbered 1 to 4
         if (player.PV.IsMine || player.PV.OwnerActorNr == 0)
         {
             Debug.Log("Spawn State");
-
+            Debug.Log("Count of players: " + Photon.Pun.PhotonNetwork.CountOfPlayers);
             reduceLives(); //Also checks for game over
 
             if (player.lives == 3 && player.PV.OwnerActorNr != 0) //Initial spawn points
             {
-                player.rb.position = initialSpawns[player.PV.OwnerActorNr - 1];
+                //Gets 0-3 value from player IDs
+                int playerID = player.PV.OwnerActorNr % Photon.Pun.PhotonNetwork.CountOfPlayers;
+                player.rb.position = initialSpawns[player.PV.OwnerActorNr % Photon.Pun.PhotonNetwork.CurrentRoom.PlayerCount];
             }
             else //Random spawn point
             {
-                //Setting to kinematic before moving the player to spawn point prevents player from getting stuck
+                //Setting to kinematic before moving the player to spawn point prevents 
+                //player from getting stuck
+                player.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
                 player.rb.isKinematic = true;
+
                 player.rb.position = player.respawnLocation.position;
-
-
             }
-
-
             timeUntilAlive = spawnTime;
         }
-
     }
 
     public override void Tick()
@@ -67,17 +66,13 @@ public class SpawnState : PlayerState
             player.countdownText.text = "Sumo!";
         }
 
-
         if (timeUntilAlive < 0)
         {
             player.countdownText.enabled = false;
             player.rb.isKinematic = false;
+            player.rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             player.SetState(new AliveState(player));
         }
-        
-
-            
-
     }
 
     public void reduceLives()
